@@ -10,7 +10,7 @@ if ($data==[]) {
     echo "Поиск ничего не дал :(";
 } else {
     foreach($data as $row) {
-        echo $row->author . ' «' . $row->title . '»' . ' ' . $row->published_year 
+        echo $row->book->author . ' «' . $row->book->title . '»' . ' ' . $row->book->published_year 
         . ' года издания';
         echo '<br>';
         echo $row->record;
