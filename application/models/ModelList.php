@@ -3,7 +3,7 @@ class ModelList extends Model
 {
     public function getData()
     {
-        require ($_SERVER['DOCUMENT_ROOT'].'/Capsule.php');
+        \App\DB::init();
         $books = \App\Book::all();
         return $books;
     }

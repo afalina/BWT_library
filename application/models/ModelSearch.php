@@ -3,8 +3,7 @@ class ModelSearch extends Model
 {
     public function getData($data)
     {
-        require ($_SERVER['DOCUMENT_ROOT'].'/Capsule.php');
-
+        \App\DB::init();
         $records = \App\Record::matching($data)
             ->with('book')
             ->limit(10)

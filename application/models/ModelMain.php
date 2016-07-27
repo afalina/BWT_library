@@ -1,17 +1,15 @@
 <?php
 Class ModelMain extends Model
 {
-    public function setData($data) {
-
-        require ($_SERVER['DOCUMENT_ROOT'].'/Capsule.php');
-        
+    public function setData($data) 
+    {
+        \App\DB::init();
         $book =  \App\Book::create(array(
                             'author'         => $data[0],
                             'title'          => $data[1],
                             'published_year' => $data[2])
                             );
         $bookId = $book->id;
-
         $textOfFile = file_get_contents(($_FILES["filename"]["tmp_name"]));
         \App\Record::createForBook($bookId, $textOfFile);
     }
