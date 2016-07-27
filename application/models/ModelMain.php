@@ -10,23 +10,8 @@ Class ModelMain extends Model
                             'published_year' => $data[2])
                             );
         $bookId = $book->id;
-        $textOfFile = file_get_contents(($_FILES["filename"]["tmp_name"]));
-        \App\Record::createForBook($bookId, $textOfFile);
+        $uploadDir = '/Users/afalina/www/books';
+        move_uploaded_file($_FILES["filename"]["tmp_name"], $uploadDir . '/' . $bookId);
+        $queue = \App\Queue::create(array('book_id' => $bookId));
     }
 }
-
-function convertToUTF8($string) 
-{
-    if (!mb_detect_encoding($string, 'UTF-8', true)) {
-        $string = mb_convert_encoding($string, 'UTF-8', 'CP1251');
-    }
-    return $string;
-}
-
-function splitIntoSentences($string)
-{
-    preg_match_all("/[^.!?\r\n]+[.!?\r\n]+/", $string, $matches);
-    return $matches[0];
-}
-
-

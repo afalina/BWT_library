@@ -6,7 +6,6 @@ class ModelSearch extends Model
         \App\DB::init();
         $records = \App\Record::matching($data)
             ->with('book')
-            ->limit(10)
             ->get();
         return $records;
     }
