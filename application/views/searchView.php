@@ -6,9 +6,7 @@
     Результаты поиска
 </div>
 <?php
-if ($data==[]) {
-    echo "Поиск ничего не дал :(";
-} else {
+if ($data) {
     foreach($data as $row) {
         echo $row->book->author . ' «' . $row->book->title . '»' . ' ' . $row->book->published_year 
         . ' года издания';
@@ -16,4 +14,6 @@ if ($data==[]) {
         echo $row->record;
         echo "<br><hr>";
     }
+} else {
+    echo "Здесь будут результаты поиска)";
 }

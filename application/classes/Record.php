@@ -16,4 +16,15 @@ class Record extends Eloquent
     public function scopeMatching($query, $data) {
         return $query->whereRaw("MATCH(records.record) AGAINST(? IN BOOLEAN MODE)", array($data));
     }
+
+    public function createForBook($bookId, $text)
+    {
+        $text = convertToUTF8($text);
+        $sentencesOfBook = splitIntoSentences($text);
+        $insertSentences = [];
+        foreach ($sentencesOfBook as $sentence) {
+            $insertSentences[] = ['book_id' => $bookId, 'record' => $sentence];
+        }
+        \App\Record::insert($insertSentences);
+    }
 }

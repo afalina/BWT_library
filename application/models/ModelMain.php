@@ -12,13 +12,23 @@ Class ModelMain extends Model
                             );
         $bookId = $book->id;
 
-        $file = new \App\BookFile();
-        $newBookFile = $file->uploadFile();
-        $testingArray = $file->parseFile();
-        foreach ($testingArray[0] as $testingUnit) {
-            \App\Record::create(array(
-                'book_id' => $bookId,
-                'record'  => $testingUnit));
-        }
+        $textOfFile = file_get_contents(($_FILES["filename"]["tmp_name"]));
+        \App\Record::createForBook($bookId, $textOfFile);
     }
 }
+
+function convertToUTF8($string) 
+{
+    if (!mb_detect_encoding($string, 'UTF-8', true)) {
+        $string = mb_convert_encoding($string, 'UTF-8', 'CP1251');
+    }
+    return $string;
+}
+
+function splitIntoSentences($string)
+{
+    preg_match_all("/[^.!?\r\n]+[.!?\r\n]+/", $string, $matches);
+    return $matches[0];
+}
+
+
