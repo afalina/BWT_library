@@ -3,5 +3,12 @@
 <head>
     <meta charset="utf-8">
     <title>Главная</title>
-    <script>alert("Неправильно введены данные!");</script>
 </head>
+
+<div class="alert alert-danger" role="alert">
+      <?php
+  foreach ($data as $row) {
+    echo $row.'<br>';
+  }
+  ?>
+</div>

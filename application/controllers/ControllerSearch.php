@@ -10,11 +10,10 @@ class ControllerSearch extends Controller
     public function actionIndex()
     {
         if (array_key_exists('inputText', $_POST)) {
-            $data = $this->model->getData(escape_html($_POST['inputText']));
-            $this->view->generate('searchView.php', 'templateView.php', $data);
+            $data = $this->model->getData($_POST['inputText']);
+            $this->view->generate('answerView.php', 'answerView.php', $data);
         } else {
-            $this->view->generate('searchView.php', 'templateView.php');
+            $this->view->generate('searchView.php', 'templateView.php', $data);
         }
-
     }
 }

@@ -6,6 +6,16 @@
     </div>
 </div>
 
+<?php
+if ($data) {
+?><div class="alert alert-danger" role="alert">
+    <?php
+    foreach ($data as $row) {
+        echo $row.'<br>';
+    }
+    ?>
+  </div>
+<?}?>
 <div class="well">
 <form method="post" action="" enctype="multipart/form-data">
     <div class="form-group">

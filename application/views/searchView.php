@@ -7,31 +7,26 @@
 
 <form action="" method="post">
     <div class="form-group">
-        <input class="form-control" type="text" name="inputText" placeholder="Введите ваш поисковый запрос">
+        <input class="form-control" type="text" name="inputText" id="inputText" placeholder="Введите ваш поисковый запрос">
     </div>
 </form>
 <h3>Результаты поиска</h3>
-<div class="panel panel-default">
-    <table class="table">
-<?php
-$i = 1;
-if ($data) {?>
-        <? foreach ($data as $row): ?>
-            <tr>
-                <td><b><?= $i . '. ' ?></b></td>
-                <td><b><?= $row->book->author ?></b></td>
-                <td><b><?= '«' . $row->book->title . '»' ?></b></td>
-                <td><b><?= $row->book->published_year ?></b></td>
-                <? $i++ ?>
-            </tr>
-            <tr>
-                <td></td>
-                <td colspan="3"><?= $row->record?></td>
-            </tr>
-        <? endforeach ?>
-    
-<?
-} 
-?>
-    </table>
+<div class="panel panel-default" id="content">
 </div>
+
+<script type="text/javascript">
+
+$(function(){
+  $("#inputText").on('input', function(){
+     var inputText = $("#inputText").val();
+     $.ajax({
+       type: "POST",
+       url: '',
+       data: {"inputText": inputText},
+       success: function(response){
+          $("#content").html(response);
+       }
+     });
+   });
+});
+</script>

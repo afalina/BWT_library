@@ -6,7 +6,7 @@ use \Illuminate\Events\Dispatcher;
 use \Illuminate\Container\Container;
 class Connection
 {
-    protected static $_instance = null;
+    private static $instance = null;
 
     private function __construct()
     {
@@ -26,11 +26,15 @@ class Connection
         $db->bootEloquent();
     }
 
+    private function __clone()
+    {
+    }
+
     public static function getInstance()
     {
-        if (self::$_instance == null) {
-            self::$_instance = new Connection();
+        if (self::$instance === null) {
+            self::$instance = new Connection();
         }
-        return self::$_instance;
+        return self::$instance;
     }
 }

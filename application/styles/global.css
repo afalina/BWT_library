@@ -30,7 +30,7 @@ form.inline {
     position: relative;
 }
 
-.jumbotron.main {
+.jumbotron.main, .jumbotron.list, .jumbotron.search {
     background-color: #445;
     background-image: url(../images/books.jpeg);
     background-size: cover;
@@ -40,21 +40,11 @@ form.inline {
 }
 
 .jumbotron.list {
-    background-color: #445;
     background-image: url(../images/list.jpeg);
-    background-size: cover;
-    background-position: center center;
-    color: #fff;
-    text-shadow: 0 0 5px rgba(0, 0, 0, 1);
 }
 
 .jumbotron.search {
-    background-color: #445;
     background-image: url(../images/search.jpeg);
-    background-size: cover;
-    background-position: center center;
-    color: #fff;
-    text-shadow: 0 0 5px rgba(0, 0, 0, 1);
 }
 
 .jumbotron.welcome-logged-in {
