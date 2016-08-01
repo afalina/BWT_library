@@ -14,7 +14,7 @@ class Record extends Eloquent
     }
 
     public function scopeMatching($query, $data) {
-        return $query->whereRaw("MATCH(records.record) AGAINST(? IN BOOLEAN MODE)", array($data));
+        return $query->whereRaw("MATCH(records.record) AGAINST(?)", array($data));
     }
 
     public function createForBook($bookId, $text)

@@ -1,8 +1,8 @@
 <?php
 require '../../vendor/autoload.php';
+\App\Connection::getInstance();
 
 while (true) {
-    \App\DB::init();
     $uploadDir = '/Users/afalina/www/books';
     $book = \App\Queue::first();
     if ($book) {
@@ -10,7 +10,9 @@ while (true) {
         $textOfFile = file_get_contents($uploadDir . '/' . $book->book_id);
         \App\Record::createForBook($book->book_id, $textOfFile);
         $book->delete();
-    } else sleep(1);
+    } else {
+        sleep(1);
+    }
 }
 
 function convertToUTF8($string) 

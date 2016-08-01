@@ -3,7 +3,6 @@ Class ModelMain extends Model
 {
     public function setData($data) 
     {
-        \App\DB::init();
         $book =  \App\Book::create(array(
                             'author'         => $data[0],
                             'title'          => $data[1],

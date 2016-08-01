@@ -1,8 +1,26 @@
-<h1>Добавить книгу</h1>
+<?=$_GET['url'];?>
+<div class="jumbotron main">
+    <div class="header">
+        <h1>Добавить книгу</h1>
+        <h2>и порадоваться жизни</h2>
+    </div>
+</div>
+
+<div class="well">
 <form method="post" action="" enctype="multipart/form-data">
-    <p><input name="author" required placeholder="Автор книги"></p>
-    <p><input name="title" required placeholder="Название книги"></p>
-    <p><input name="published_year" required placeholder="Год издания"></p>
-    <p><input name="filename" required type="file"></p>
-    <p><input type="submit" name="submit">
+    <div class="form-group">
+        <input class="form-control" type="text" name="author" required placeholder="Автор книги">
+    </div>
+    <div class="form-group">
+        <input class="form-control" name="title" required placeholder="Название книги">
+    </div>
+    <div class="form-group">
+        <input class="form-control" name="published_year" required placeholder="Год издания">
+    </div>
+    <div class="form-group">
+        <label>Загрузить файл с книгой</label>
+        <span class="glyphicon glyphicon-upload"></span><input class="btn" name="filename" required type="file">
+    </div>
+    <input class="btn btn-primary btn-lg" type="submit" name="submit" value="Добавить книгу">
 </form>
+</div>

@@ -3,48 +3,46 @@ class Route
 {
     static public function start()
     {
-        // контроллер и действие по умолчанию
         $controllerName = 'Main';
         $actionName = 'Index';
         $routes = explode('/', $_SERVER['REQUEST_URI']);
-        // получаем имя контроллера
-        if ( !empty($routes[1])) {
+        if (!empty($routes[1])) {
             $controllerName = $routes[1];
         }
-        // получаем имя экшена
-        if ( !empty($routes[2]) ) {
+        if (!empty($routes[2]) ) {
             $actionName = $routes[2];
         }
-        // добавляем префиксы
-        $modelName = 'Model'.$controllerName;
-        $controllerName = 'Controller'.$controllerName;
-        $actionName = 'action'.$actionName;
-        // подцепляем файл с классом модели (файла модели может и не быть)
-        $modelFile = $modelName.'.php';
-        $modelPath = "application/models/".$modelFile;
+        Route::includeModelFile($controllerName);
+        Route::includeControllerFile($controllerName);
+        Route::addAction($actionName, $controllerName);
+    }
+
+    public function includeModelFile($controllerName) 
+    {
+        $modelPath = 'application/models/Model'.$controllerName.'.php';
         if(file_exists($modelPath)) {
-            include "application/models/".$modelFile;
+            include $modelPath;
         }
-        // подцепляем файл с классом контроллера
-        $controllerFile = $controllerName.'.php';
-        $controllerPath = "application/controllers/".$controllerFile;
+    }
+
+    public function includeControllerFile($controllerName)
+    {
+        $controllerPath = 'application/controllers/Controller'.$controllerName.'.php';
         if(file_exists($controllerPath)) {
-            include "application/controllers/".$controllerFile;
+            include $controllerPath;
         } else {
-            /*
-            правильно было бы кинуть здесь исключение,
-            но для упрощения сразу сделаем редирект на страницу 404
-            */
             Route::ErrorPage404();
         }
-        // создаем контроллер
+    }
+
+    public function addAction($actionName, $controllerName) 
+    {
+        $controllerName = 'Controller'.$controllerName;
         $controller = new $controllerName;
-        $action = $actionName;
+        $action = 'action'.$actionName;
         if(method_exists($controller, $action)) {
-            // вызываем действие контроллера
             $controller->$action();
         } else {
-            // здесь также разумнее было бы кинуть исключение
             Route::ErrorPage404();
         }
     }
@@ -57,4 +55,3 @@ class Route
         header('Location:'.$host.'404');
     }
 }
-?>
